@@ -1,0 +1,39 @@
+<div class="container">
+    <div class="row border-bottom pb-2 mb-2">
+        <div class="col-md-3 align-item center">
+            <h1>Books List</h1>
+        </div>
+        <div class="col-md-3 offset-md-6 align-self-center">
+            <input type="text" class="form-control" (keyup)="onKey($event)" placeholder="Search ...">
+        </div>
+    </div>
+
+    <div class="table-responsive">
+
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Desciption</th>
+                    <th class="text-center" scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let book of Books; let i = index">
+                    <th scope="row">{{book._id}}</th>
+                    <td>{{book.name}}</td>
+                    <td>{{book.price}}</td>
+                    <td>{{book.description}}</td>
+                    <td class="text-center">
+                        <button class="btn btn-sm btn-primary" routerLink="/book-detail/{{book._id}}">
+                            Edit</button>
+                        <button class="btn btn-sm btn-danger" (click)="delete(book._id,i)">
+                            Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
