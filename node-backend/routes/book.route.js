@@ -7,7 +7,8 @@ const bookRoute = express.Router();
 let Book = require('../model/book');
 
 bookRoute.route('/add-book').post((req, res, next) => {
-    Book.create(req.body, (error, data) => {
+    let { name, price, description } = req.body
+    Book.create({ name: name, price: price, description: description }, (error, data) => {
         if (error) {
             return next(error);
         }
@@ -68,8 +69,10 @@ bookRoute.route('/delete-book/:id').delete((req, res, next) => {
 })
 
 bookRoute.route('/search/:query?').get((req, res, next) => {
-    console.log(req.params.query || '');
-    Book.find({ name: { $regex: `.*${req.params.query || ''}.*` } }, (error, data) => {
+    let query = req.params.query || ''
+    console.log(query);
+
+    Book.find({ name: { $regex: `.*${query}.*` } }, (error, data) => {
         if (error) {
             return next(error);
         }
