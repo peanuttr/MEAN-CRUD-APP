@@ -69,14 +69,13 @@ bookRoute.route('/delete-book/:id').delete((req, res, next) => {
 })
 
 bookRoute.route('/search/:query?').get((req, res, next) => {
-    let query = req.params.query || ''
-    console.log(query);
-
-    Book.find({ name: { $regex: `.*${query}.*` } }, (error, data) => {
+    const queryname = new RegExp(req.params.query || '', 'i')
+    Book.find({ name: queryname }, (error, data) => {
         if (error) {
             return next(error);
         }
         else {
+            console.log(data);
             res.json(data);
             console.log("Book Searched Succesfully");
         }
